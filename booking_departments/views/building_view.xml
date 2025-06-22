@@ -1,0 +1,71 @@
+<odoo>
+    <!--####################    Tree Or List  View  ####################################-->
+    <record id="building_view_tree" model="ir.ui.view">
+        <field name="name">Building Tree</field>
+        <field name="model">building</field>
+        <field name="arch" type="xml">
+            <tree class="header_custom" multi_edit="1" create="1" edit="1" delete="1">
+                <field name="name"/>
+                <field name="no"/>
+                <field name="code"/>
+                <field name="active"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+    <!--####################    Form View  ####################################-->
+    <record id="building_view_form" model="ir.ui.view">
+        <field name="name">Building Form</field>
+        <field name="model">building</field>
+        <field name="arch" type="xml">
+            <form create="1" edit="1" delete="1">
+                <sheet>
+                    <group>
+                        <group string="General_Info.">
+                            <field name="name"/>
+                            <field name="no"/>
+                        </group>
+                        <group string="Additional_Info.">
+                            <field name="code"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="description"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!--####################    Search View  ####################################-->
+    <record id="building_view_search" model="ir.ui.view">
+        <field name="name">Building search</field>
+        <field name="model">building</field>
+        <field name="arch" type="xml">
+            <search>
+<!--                ############# For doing Search #############-->
+                <field name="name"/>
+                <field name="no"/>
+                <field name="code"/>
+            </search>
+        </field>
+    </record>
+
+    <!--####################    Action View  ####################################-->
+    <record id="building_action" model="ir.actions.act_window">
+        <field name="name">Building</field>
+        <field name="res_model">building</field>
+    </record>
+    <menuitem
+            id="Building_menu_items"
+            name="Building"
+            parent="properties_menu"
+            action="building_action"
+    />
+</odoo>

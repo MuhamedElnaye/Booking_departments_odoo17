@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="app_one.ListView">
+        <!-- t-name="app_one.ListView" templet name you can set any name         -->
+        <h1>Properties List OWL</h1>
+        <button class="btn btn-primary m-1 p-1" t-on-click="createRecord">Create Record</button>
+        <!-- t-o-click="createRecord" => meaning in case user Onclick this Button doing "createRecord" function
+                   that Found in "listView.js" File  that Doing Create Record -->
+        <div class="o_list_view ">
+            <table class="o_list_table table table-sm table-hover table-striped">
+                <thead>
+                        <tr>
+                            <th class="o_list_column_header highlight">Name</th>
+                            <th class="o_list_column_header highlight">Postcode</th>
+                            <th class="o_list_column_header highlight">Data Availability</th>
+                            <th class="o_list_column_header highlight">Action</th>
+                            <!-- "Action" for control in create and Delete method "listView.js" File"
+                               "deleteRecord" function
+                              -->
+                        </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="state.records" t-as="record" t-key="record.id">
+                    <!-- Note : "foreach" Must Connect with "QWeb" templates So we use "records" in "setup()" method
+                                    that Found in "listView.js" file As its doing ""QWeb" templates" connecting
+                                    and Can use it.
+                         't-foreach="records"' =>using To do for loop about Or records From "property"  model
+                         't-as="record"' =>record name as "record"
+                           't-key="record.id"' =>Make unique key For record you will do it          -->
+                        <tr>
+                            <!--<td>property1</td>-->
+                            <!--<td>112kjdk</td>-->
+                            <!--<td>16/6/2025</td>-->
+                            <td><t t-esc="record.name"/></td>
+                            <td><t t-esc="record.postcode"/></td>
+                            <td><t t-esc="record.data_availability"/></td>
+                            <td><button class="btn btn-danger m-1 p-1" t-on-click="deleteRecord.bind(this,record.id)">Delete</button></td>
+                            <!-- "Delete" for control in create and Delete method "listView.js" File"
+                                 "deleteRecord" function
+                               # "t-on-click="deleteRecord.bind(this,record.id)" =>in Case User OnClick  this Button
+                                    will Delete this Record That I click on delete
+                                   - "deleteRecord" this function Found in "listView.js" File"
+                                    Note :
+                                        - bind(this,record.id) =>"bind" using to delete only This Record that
+                                            Stop اقف عليه on it =>in Case I don't Write "bind(this," It's will delete
+                                            All Records from "property" table \
+                                        -"record.id" =>Must Be Found in "loadRecords" Function in "listView.js" File"
+                              -->
+                         </tr>
+                     </t>
+                </tbody>
+            </table>
+        </div>
+    </t>
+
+</templates>

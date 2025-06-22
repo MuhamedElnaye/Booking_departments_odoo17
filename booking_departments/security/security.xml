@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="property_category" model="ir.module.category">
+        <field name="name">Real State</field>
+    </record>
+    <record id="property_manager_group" model="res.groups">
+        <field name="name">Property Manager</field>
+        <!--For Doing link or show this Groups inside 'Real State category'  -->
+        <field name="category_id"  ref="app_one.property_category" />
+        <!--ref="app_one.property_category" =>'app_one' addon name,
+             'property_category'=> category_id that you want to link with it         -->
+    </record>
+
+<!--    <record id="property_user_group" model="res.groups">-->
+<!--        <field name="name">Property User</field>-->
+<!--        &lt;!&ndash;For Doing link or show this Groups inside 'Real State category'  &ndash;&gt;-->
+<!--        <field name="category_id"  ref="app_one.property_category" />-->
+<!--        &lt;!&ndash;ref="app_one.property_category" =>'app_one' addon name,-->
+<!--             'property_category'=> category_id that you want to link with it         &ndash;&gt;-->
+<!--    </record>-->
+
+<!-- [2] - task2 access record rules    -->
+    <!--########## Task2 in video (57) record Rule ###########   -->
+<!--    <record id="property_record_rule_by_user" model="ir.rule">-->
+<!--        <field name="name">Property Record Rule</field>-->
+<!--        <field name="model_id" ref="app_one.model_property"/>-->
+<!--        &lt;!&ndash; above line for handel "property" model       &ndash;&gt;-->
+<!--        <field name="domain_force">[('create_uid','=',user.id)]</field>-->
+<!--        &lt;!&ndash;name="domain_force" =>meaning show only domains in the condition-->
+<!--             [('create_uid','=',user.id)]  =>IF the user 'create_uid' that create this record-->
+<!--                Equal (user.id) then show this records and give it down condition-->
+<!--                &ndash;&gt;-->
+<!--        &lt;!&ndash; The Permission For this User        &ndash;&gt;-->
+<!--        <field name="perm_read" eval="True"/>-->
+<!--        <field name="perm_write" eval="True"/>-->
+<!--        <field name="perm_create" eval="True"/>-->
+<!--        <field name="perm_unlink" eval="True"/>-->
+<!--    </record>-->
+</odoo>

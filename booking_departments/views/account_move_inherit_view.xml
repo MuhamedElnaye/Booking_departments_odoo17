@@ -1,0 +1,21 @@
+<odoo>
+    <!--####################    Tree Or List  View  ####################################-->
+    <record id="Account_Move_view_from" model="ir.ui.view">
+        <field name="name">Account Move View Form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <!-- ref="account.view_move_form"=>for coming this from active "debug mode" copy it From
+                Field calling "External ID"-->
+        <field name="arch" type="xml">
+            <!--<field name="header" position="inside">-->
+            <!--    <button name="action_do_somthing" string="Do SomeThing" type="object"-->
+            <!--             class="btn-primary"/>-->
+            <!--</field>-->
+            <!-- You Can Do this With another way calling 'Xpath'    EX:-->
+            <xpath expr="//header" position="inside">
+                <button name="action_do_somthing" string="Do SomeThing" type="object"
+                        class="btn-primary"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

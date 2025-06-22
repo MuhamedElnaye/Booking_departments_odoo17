@@ -1,0 +1,17 @@
+<odoo>
+    <!--####################    Tree Or List  View  ####################################-->
+    <record id="sales_order_from" model="ir.ui.view">
+        <field name="name">Sales Order Form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="before">
+                <field name="property_id"/>
+            </field>
+           <!-- You Can Do this With another way calling 'Xpath'    EX:-->
+            <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="property_id"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

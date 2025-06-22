@@ -1,0 +1,54 @@
+/* Styles For ListView */
+
+.o_list_view{
+margin-top:20px;
+padding:10px;
+background-color:#f9f9f9;
+border-radius:8px;
+box-shadow:0px 1px 1px rgba(0,0,0,0.1);
+}
+
+.o_list_table{
+width:100%;
+border-collapse:collapse;
+font-family:"Arial",sans-serif;
+}
+
+.o_list_column_header{
+background-color:#7BD3EA !important;
+color:green;
+padding:12px 15px !important;
+text-align:left !important;
+border-bottom:2px solid #ddd;
+}
+
+.o_list_table th,.o_list_table td{
+padding:10px;
+text-align:left;
+}
+
+.o_list_table td{
+background-color:#f4f4f4;
+border-bottom:1px solid #ddd;
+font-size:14px;
+}
+
+.o_list_table tr:nt-child(even){
+background-color:#f9f9f9;
+}
+
+.o_list_table tr:hover{
+background-color:#f1f1f1;
+cursor:pointer;
+}
+
+.o_list_table .highlight{
+background-color:#ffeb3b;
+font-weight:bold;
+}
+
+.table-responsive{
+overflow:auto;
+-webkit-overflow-scrolling:touch;
+}
+

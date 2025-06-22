@@ -1,0 +1,15 @@
+@font-face{
+font-family:'PlaywriteHU';
+src:url('/app_one/static/src/fonts/PlaywriteHU-VariableFont_wght.ttf')
+
+}
+@font-face{
+font-family:'BebasNeue';
+src:url('/app_one/static/src/fonts/BebasNeue-Regular.ttf')
+
+}
+@font-face{
+font-family:'Workbench';
+src:url('/app_one/static/src/fonts/Workbench-Regular-VariableFont_BLED,SCAN.ttf')
+
+}

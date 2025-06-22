@@ -1,0 +1,27 @@
+<odoo>
+    <data>
+        <!--Note
+Id :unique
+name:the Name that Show in App
+parent :the Father Of this Item or Where Its Found
+-->
+        <menuitem
+                id="real_estate_root_menu"
+                name="Real Estate"
+        />
+<!--                web_icon="app_one,/static/description/icon.png"-->
+<!--                web_icon="addons_name,path of icon"-->
+        <menuitem
+                id="properties_menu"
+                name="Properties"
+                parent="real_estate_root_menu"
+        />
+        <menuitem
+                id="configration_menu"
+                name="Configration"
+                parent="real_estate_root_menu"
+                groups="property_manager_group"
+        />
+    </data>
+
+</odoo>
