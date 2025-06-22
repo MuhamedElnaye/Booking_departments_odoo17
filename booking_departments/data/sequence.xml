@@ -1,0 +1,13 @@
+<odoo>
+    <data>
+        <record id="property_sequence" model="ir.sequence">
+            <field name="name">Property Seq.</field>
+            <field name="code">property_seq</field>
+            <!--"code" to can write code ,'property_seq' its will using in "create method" in "property.py" file-->
+            <field name="prefix">MOH</field>
+            <!--"<field name="prefix">MOH</field>"meaning the prefix of "Sequence" is "MOH"  -->
+            <field name="padding">5</field>
+            <!-- <field name="padding">5</field>" meaning number of digits after prefix is '5' in Sequence -->
+        </record>
+    </data>
+</odoo>

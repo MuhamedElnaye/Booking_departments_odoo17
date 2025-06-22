@@ -1,0 +1,55 @@
+<odoo>
+    <!--####################    Tree Or List  View  ####################################-->
+    <record id="owner_view_tree" model="ir.ui.view">
+        <field name="name">Owner Tree</field>
+        <field name="model">owner</field>
+        <field name="arch" type="xml">
+            <tree multi_edit="1" create="1" edit="1" delete="1">
+                <field name="name"/>
+                <field name="phone"/>
+                <field name="address"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--####################    Form View  ####################################-->
+    <record id="owner_view_form" model="ir.ui.view">
+        <field name="name">Owner Form</field>
+        <field name="model">owner</field>
+        <field name="arch" type="xml">
+            <form create="1" edit="1" delete="1">
+                <sheet>
+                    <!-- class="oe_title"  this a Class From Bootstrap             -->
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <!--string="General_Info. this is Name Of Group             -->
+                        <group>
+                            <field name="phone"/>
+                            <field name="address"/>
+                        </group>
+                        <group>
+                            <field name="property_ids" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+
+    </record>
+    <!--####################    Action View  ####################################-->
+    <record id="owner_action" model="ir.actions.act_window">
+        <field name="name">Owner</field>
+        <field name="res_model">owner</field>
+    </record>
+    <menuitem
+            id="owners_menu_items"
+            name="Owners"
+            parent="configration_menu"
+            action="owner_action"
+    />
+</odoo>

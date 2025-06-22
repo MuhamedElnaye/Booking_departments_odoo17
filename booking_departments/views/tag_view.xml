@@ -1,0 +1,47 @@
+<odoo>
+    <!--####################    Tree Or List  View  ####################################-->
+    <record id="tags_view_tree" model="ir.ui.view">
+        <field name="name">Tags Tree</field>
+        <field name="model">tags</field>
+        <field name="arch" type="xml">
+            <tree multi_edit="1" create="1" edit="1"  delete="1">
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+    <!--####################    Form View  ####################################-->
+    <record id="tags_view_form" model="ir.ui.view">
+        <field name="name">Tags Form</field>
+        <field name="model">tags</field>
+        <field name="arch" type="xml">
+            <form create="1" edit="1"  delete="1">
+                <sheet>
+                    <!-- class="oe_title"  this a Class From Bootstrap             -->
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group >
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+
+    </record>
+  <!--####################    Action View  ####################################-->
+    <record id="tags_action" model="ir.actions.act_window">
+        <field name="name">Tags</field>
+        <field name="res_model">tags</field>
+    </record>
+    <menuitem
+            id="tags_menu_items"
+            name="Tags"
+            parent="configration_menu"
+            action="tags_action"
+    />
+</odoo>

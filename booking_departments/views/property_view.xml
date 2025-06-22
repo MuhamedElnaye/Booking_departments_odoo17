@@ -1,0 +1,233 @@
+<odoo>
+    <!--####################    Tree Or List  View  ####################################-->
+    <record id="property_view_tree" model="ir.ui.view">
+        <field name="name">Property Tree</field>
+        <field name="model">property</field>
+        <field name="arch" type="xml">
+            <tree class="header_custom" decoration-danger="(is_late)" multi_edit="1" create="1" edit="1" delete="1">
+                <header>
+                    <button name="property_xlsx_report" type="object" string="Print Excel Report"
+                            class="btn-primary"/>
+                    <!-- name="property_xlsx_report" =>Method name that will do action Found in "property.py" File  -->
+                </header>
+
+                <field name="is_late" invisible='1' optional="1"/>
+                <field name="name"/>
+                <field name="postcode"/>
+                <field name="owner_id"/>
+                <field name="garage"/>
+                <field name="state"/>
+                <field name="garden_area"/>
+                <field name="expected_price"/>
+                <field name="selling_price"/>
+                <field name="active" optional="1"/>
+                <field name="Living_area" optional="1"/>
+                <field name="bedrooms" optional="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--####################    Form View  ####################################-->
+    <record id="property_view_form" model="ir.ui.view">
+        <field name="name">Property Form</field>
+        <field name="model">property</field>
+        <field name="arch" type="xml">
+            <form create="1" edit="1" delete="1">
+                <sheet>
+                    <div name="button_box" class="oe_button_box">
+                        <!-- name="button_box" =>Static name to dealing with smart button
+                             class="oe_button_box" =>class From Bootstrap -->
+                        <button name="action_open_related_owner" type="object" icon="fa-user"
+                                string="Owner" invisible="not owner_id"/>
+                        <!-- 'action_open_related_owner' =>Method that Found in 'property.py' file
+                             'icon="fa-user"'=> icon found in bootstrap calling 'fa-user'
+                             'string="Owner"' =>the name That Will Show For End User
+                             'invisible="not owner_id"'=>meaning غير مرئ في حالة ليس الكود الخاص بالمالك
+                                'owner_id'=>this Field Found in 'property.py' file
+                                                -->
+                    </div>
+                    <widget name="web_ribbon" title="Archive" bg_color="text-bg-danger" invisible="active"/>
+                    <widget name="web_ribbon" title="Sold" bg_color="text-bg-success" invisible="state!='sold'"/>
+                    <!-- name="web_ribbon" =>For Calling ribbon shap
+                         title="Archive" =>the Title that will show on ribbon
+                         bg_color="text-bg-danger" =>color Of Ribbon
+                         invisible="active" =>meaning the condition for this show this ribbon
+                           must record be archived -->
+                    <header>
+                        <button name="action" type="object" class="btn-primary" string="Action"/>
+                        <button name="get_properties" type="object" class="btn-primary"
+                                string="Test Call Get Properties"/>
+                        <button name="action_draft" type="object" class="btn-primary" string="Set To Draft"
+                                invisible="state in ('draft','closed')"/>
+                        <button name="action_pending" type="object" class="btn-secondary" string="Pending"
+                                invisible="state != 'draft'"/>
+                        <button name="action_sold" type="object" class="btn-success" string="Sold"
+                                invisible="state !='pending'"/>
+                        <!--                         <field name="state" widget="statusbar" statusbar_visible="draft,sold"/>-->
+                        <!--                         <field name="state" widget="statusbar" options="{'clickable':1}"/>-->
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <!-- class="oe_title"  this a Class From Bootstrap             -->
+                    <div class="oe_title">
+                        <label for="ref"/>
+                        <h1>
+                            <field name="ref" readonly="state !='draft'"/>
+                        </h1>
+                        <label for="name"/>
+                        <h3>
+                            <field name="name" readonly="state == 'closed'"/>
+                        </h3>
+                    </div>
+                    <group>
+                        <!--string="General_Info. this is Name Of Group             -->
+                        <group string="General_Info.">
+                            <field name="create_time" readonly="1"/>
+                            <field name="next_time" readonly="1"/>
+                            <field name="postcode" readonly="state == 'closed'"/>
+                            <field name="data_availability" required="1" readonly="state == 'closed'"/>
+                            <field name="expected_selling_date" readonly="state == 'closed'"/>
+                            <field name="is_late" readonly="state == 'closed'"/>
+                            <field name="expected_price" readonly="state == 'closed'"/>
+                            <field name="selling_price" readonly="state == 'closed'"/>
+                            <field name="diff" readonly="state == 'closed'"/>
+                            <field name="Living_area" readonly="state == 'closed'"/>
+                        </group>
+
+                        <group string="Additional_Info.">
+                            <field name="owner_id" readonly="state == 'closed'"/>
+                            <field name="owner_address" readonly="state == 'closed'"/>
+                            <field name="owner_phone" readonly="state == 'closed'"/>
+                            <field name="bedrooms" readonly="state == 'closed'"/>
+                            <field name="garage" readonly="state == 'closed'"/>
+                            <field name="garden_area" readonly="state == 'closed'"/>
+                            <field name="grand_orientation" readonly="state == 'closed'"/>
+                            <field name="active" readonly="state == 'closed'"/>
+                            <field name="tag_ids" widget="many2many_tags" readonly="state == 'closed'"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="description" required="1" groups="app_one.property_manager_group"/>
+                    </group>
+                    <notebook>
+                        <page string="Bedrooms">
+                            <field name="line_ids" readonly="state == 'closed'">
+                                <tree editable="bottom">
+                                    <field name="description"/>
+                                    <field name="area"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+
+    </record>
+
+    <!--####################    Search View  ####################################-->
+    <!--    <record id="property_view_search" model="ir.ui.view">-->
+    <!--        <field name="name">Property search</field>-->
+    <!--        <field name="model">property</field>-->
+    <!--        <field name="arch" type="xml">-->
+    <!--            <search>-->
+    <!--             #############  For doing Search ############# -->
+    <!--                <field name="postcode"/>-->
+    <!--                <field name="name"/>-->
+
+    <!--                 ###### For doing Filter ########### -->
+    <!--                <filter name="is_garden" string="With Garden Area" domain="[('garden_area','=',True)]"/>-->
+    <!--                <filter name="is_not_garden" string="Without Garden Area" domain="[('garden_area','!=',True)]"/>-->
+    <!--               the Same above one <filter name="is_not_garden" string="Without Garden Area" domain="[('garden_area','=',False)]"/>-->
+    <!--                <filter name="is_garage" string="With Garage" domain="[('garage','=',True)]"/>-->
+
+    <!--                 ###### For doing Group By ########### -->
+    <!--                Note context="{'group_by':'garden_area'}" group_by const in Context          -->
+    <!--                <filter name="group_garden_area" string="Garden Area" context="{'group_by':'garden_area'}"/>-->
+    <!--                <filter name="group_garage" string="Garage" context="{'group_by':'garage'}"/>-->
+
+    <!--            </search>-->
+    <!--        </field>-->
+    <!--    </record>-->
+
+    <!--####################  Window  Action View  ####################################-->
+    <record id="property_action" model="ir.actions.act_window">
+        <field name="name">Property</field>
+        <field name="res_model">property</field>
+    </record>
+    <!--####################  Server  Action View  ####################################-->
+    <!--    <record id="property_closed_server_action" model="ir.actions.server">-->
+    <!--        <field name="name">Closed</field>-->
+    <!--        <field name="model_id" ref="model_property"/>-->
+    <!--        &lt;!&ndash; "model_property" =>model is Const and "property" is model or table name of Property       &ndash;&gt;-->
+    <!--        <field name="binding_model_id" ref="model_property"/>-->
+    <!--        &lt;!&ndash; "binding_model_id" to show "Closed" tag in dropdown List of "Setting"&ndash;&gt;-->
+    <!--        <field name="state">code</field>-->
+    <!--        &lt;!&ndash; name="code" using to can Write python Code in Xml file Like:-->
+    <!--           action=records.action_closed()-->
+    <!--           records=>using to can do closed for more records or(properties) together not one one-->
+    <!--           action_closed() =>name of closed that Found in "property.py"  file-->
+    <!--        &ndash;&gt;-->
+    <!--        <field name="code">-->
+    <!--            action=records.action_closed()-->
+    <!--        </field>-->
+    <!--    </record>-->
+    <!--####################  Server  Action View  (Wizard) ####################################-->
+    <record id="property_change_state_wizard_server_action" model="ir.actions.server">
+        <field name="name">Change state</field>
+        <field name="model_id" ref="model_property"/>
+        <field name="binding_model_id" ref="model_property"/>
+        <field name="state">code</field>
+        <field name="code">
+            action=records.action_open_property_change_state_wizard()
+            <!--"action_open_property_change_state_wizard()" this method Found in "property.py"file   -->
+        </field>
+    </record>
+    <!--####################  Automated  Action View  ####################################-->
+    <record id="check_selling_date_view" model="ir.cron">
+        <field name="name">Property: Check Selling date</field>
+        <field name="model_id" ref="model_property"/>
+        <!--"model_property" name of model in 'property.py' file in class "Property"     -->
+        <field name="state">code</field>
+        <!--<field name="state">code</field> =>this Line used to can access and write Python Code in XML  -->
+        <field name="code">model.check_expected_selling_date()</field>
+        <field name="interval_number">1</field>
+        <!--<field name="interval_number">1</field>## its meaning every (one)day with type :"days" check selling  -->
+        <field name="interval_type">days</field>
+        <!--<field name="interval_type">days</field> # what is the type to want to check in it [minutes,hours,days,weeks,months]-->
+        <field name="numbercall">-1</field>
+        <!--<field name="numbercall">True</field>
+         ## numbercall=-1 : meaning calling this method forever or to infinity   معنها نفذ الداله هذه الي مالنهايه
+          you can define this [days,months,weeks,years)
+         -->
+        <!--        <field name="active">False</field>-->
+        <!--        <field name="active">True</field>-->
+        <!--<field name="active">True</field> using to  activate  "ir.cron" action and work it.
+         Note :(Important)(Error) active save the Last value was in it
+         EX:when i active =True  and inactive  it or delete it its stay active until you chang it to another value{False}
+         -->
+    </record>
+
+    <menuitem
+            id="properties_menu_items"
+            name="Properties"
+            parent="properties_menu"
+            action="property_action"
+    />
+    <!-- =================== Start OWL Client Action 78 ================== -->
+    <record id="list_view_action" model="ir.actions.client">
+        <field name="name">Properties List View</field>
+        <field name="tag">app_one.action_list_view</field>
+    </record>
+    <menuitem
+            id="property_list_view_menu"
+            name="Properties OWL"
+            parent="properties_menu"
+            action="list_view_action"
+    />
+    <!-- =================== Start OWL Client Action 78 ================== -->
+</odoo>

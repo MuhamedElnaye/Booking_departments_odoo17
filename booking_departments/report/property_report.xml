@@ -1,0 +1,150 @@
+<odoo>
+    <record id="property_report" model="ir.actions.report">
+        <field name="name">Property Report</field>
+        <!--"Property Report" it's show in "setting" dropdown  for end user with this name-->
+        <field name="model">property</field>
+        <field name="report_type">qweb-pdf</field>
+        <!--        <field name="report_type">qweb-html</field>-->
+        <!--<field name="report_type">qweb-pdf</field> => Using to can identify  the type of print file
+            [pdf,html] or any that you want =>this type Will Show For "End user"
+            Note: in 'qweb-html' it's show in the bag itself and "click on" print for doing pdf
+            -->
+        <field name="binding_model_id" ref="model_property"/>
+        <!-- "binding_model_id" => using to show this record in "setting" with name  "Property Report"
+               "model_property" => 'model_ ' its Const word  and  'property' it's  model name that will do this
+                 action for it  -->
+        <field name="binding_type">report</field>
+        <!--'binding_type'=>using to show "button" in tree view calling "Print" to can do this action
+         Note: in old odoo  Version its show in [tree and Form ] view to gather -->
+        <field name="report_name">app_one.property_report_template</field>
+        <!--"report_name" using to can identify the template that will be dealing with it
+               Note: - "app_one." you should write addons name that will be dealing with it
+                     - "property_report_template" =>ID of template that  will be showing it in this report
+                     - you can use "id" of this template in with the same "ID" in another "addons"
+                         and not addon itself will be Error.
+               -->
+    </record>
+    <!-- <template id="property_report_template"> =>in This Template you can use pure (HTML and CSS) by using [Qweb] -->
+    <template id="property_report_template">
+        <!--Using "Qweb" you can Call  Containers by doing [inheritance] from addons 'web' that found in 'base' of odoo
+            'web' its install with odoo during install-->
+        <t t-call="web.html_container">
+            <!--<t t-call="web.basic_layout"> =>its same as"web.external_layout" but difference about it
+                in shap where its without "header and Footer"-->
+            <t t-call="web.external_layout">
+                <!-- "external_layout" =>doing header and Footer  for "pdf report"
+                  For doing any change for This layout "external_layout" => from "UI"
+                    Go to "Settings" =>"General Settings" =>
+                        "Configure your document layout" For "UI" edit,
+                        or "edit layout" for "Coding" edit
+
+                 -->
+                <t t-foreach="docs" t-as="rec">
+                    <!--doing loop using "Qweb" using "t-foreach" -->
+                    <!--t-foreach="docs" => "t-foreach" =>by this will be doing looping about all "docs" or "records"
+                             in this table or Model.
+                        "t-as="rec"" => its meaning make this record or doc with any name you want for free => using "rec"
+                              -->
+                    <h1>Property Report1</h1>
+                    <h1 style="font-family:'PlaywriteHU';">Property Report2</h1>
+                    <h1 style="font-family:'BebasNeue';">Property Report3</h1>
+                    <h1 style="font-family:'Workbench';">Property Report4</h1>
+                    <!-- table styling   -->
+                    <style>
+                        table {
+                        width:100%;
+                        border: 2px solid black;
+                        border-collapse:collapse;
+                        <!--                        margin:10px !important;don't work-->
+                        padding:8px;
+                        }
+                        table th{
+                        <!--                        margin:10px !important;-->
+                        border: 1px solid green;
+                        padding:8px;
+                        background:#f0f0f0;
+                        color:#313030;
+                        }
+                        table td{
+                        <!--                        margin:10px !important; don't work-->
+                        border: 1px solid black;
+                        padding:8px;
+                        color:#313030;
+                        text-align:center;
+                        background:#fffff;
+                        }
+                    </style>
+                    <!--###### Create tables          -->
+                    <table>
+                        <thead>
+                            <th colspan="4">General Information</th>
+                        </thead>
+                        <tbody>
+                            <td>Name</td>
+                            <td>
+                                <t t-esc="rec.name"/>
+                            </td>
+                            <!--by using "Qweb" "looping =>foreach" to calling 'rec.name' or any record from model
+                                  we are using this commend "t-esc="rec.name""  -->
+                            <td>Postcode</td>
+                            <td>
+                                <t t-esc="rec.postcode"/>
+                            </td>
+                        </tbody>
+                        <thead>
+                            <th colspan="4">Additional Information</th>
+                        </thead>
+                        <tbody>
+                            <td>Owner</td>
+                            <td>
+                                <t t-esc="rec.owner_id.name"/>
+                                <!-- "rec.owner_id.name" for calling owner name if we don't use '.name' will return "ID"-->
+                                <span t-field="rec.owner_id.name"/>
+                                <!--<span t-field="rec.owner_id"/> => by using this way (in relational fields) you
+                                 don't need to write 'rec.owner_id.name' [.name] because its know it automatically   -->
+                            </td>
+                            <!--by using "Qweb" "looping =>foreach" to calling 'rec.name' or any record from model
+                                  we are using this commend "t-esc="rec.name""  -->
+                            <td>Phone</td>
+                            <td>
+                                <t t-esc="rec.owner_phone"/>
+                            </td>
+                        </tbody>
+                    </table>
+                    <br/>
+                    <br/>
+                    <table>
+                        <thead>
+                            <th>Description_from=>t-esc</th>
+                            <th>Description_from=>t-field</th>
+                            <th>Area(m2)</th>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="rec.line_ids" t-as="line">
+                                <!--Note :In Bedrooms "line_ids"  relation"One2many" we should do loop
+                                     using 't-foreach="rec.line_ids"' where from all record or docs
+                                        return 'line_ids' with name 'line' -->
+                                <tr>
+                                    <td>
+                                        <t t-esc="line.description"/>
+                                        <!--'t-esc="line.description"' => meaning from line that we are  named it above
+                                             call record "description" from it -->
+                                    </td>
+                                    <td>
+                                        <span t-field="line.description"/>
+                                        <!--<span t-field="line.description"/> =>this another
+                                        way as same or like (نفس الاستخدام) '<t t-esc="line.description"/>'-->
+                                    </td>
+                                    <td>
+                                        <t t-esc="line.area"/>
+
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
